@@ -1,3 +1,6 @@
+const queries = require("../db/queries/queries");
+const asyncHandler = require("express-async-handler");
+
 const getNewBranch = (req, res) => {
     res.render("newBranch");
 };
@@ -6,12 +9,14 @@ const postNewBranch = (req, res) => {
     res.send("This is where my new branches will post to before redirecting to index");
 };
 
-const getBranches = (req, res) => {
-    res.render("branches");
-};
+const getBranches = asyncHandler(async (req, res) => {
+    const rows = await queries.getBranches();
+    res.render("branches", { branches: rows });
+});
 
 const getSingleBranch = (req, res) => {
-    res.send("This will be a specific branch page like Hongdae Branch");
+    const branch = req.params.branch;
+    res.render("branchPage", {branchTitle: branch});
 };
 
 module.exports = { getNewBranch, postNewBranch, getBranches, getSingleBranch };

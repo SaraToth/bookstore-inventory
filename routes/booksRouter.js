@@ -4,7 +4,7 @@ const { getNewBook, postNewBook, getBooks, getSingleBook } = require("../control
 
 booksRouter.get("/new", getNewBook);
 booksRouter.post("/new", postNewBook);
-booksRouter.get("/:book", getSingleBook);
+booksRouter.get("/:bookId", getSingleBook);
 booksRouter.get("/", getBooks);
 
 module.exports = booksRouter;
