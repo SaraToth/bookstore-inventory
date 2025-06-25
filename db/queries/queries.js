@@ -5,4 +5,14 @@ async function getBranches() {
     return rows;
 }
 
-module.exports = { getBranches };
+async function getBooks() {
+    const { rows } = await pool.query("SELECT * FROM books");
+    return rows;
+}
+
+async function getBookById(bookId) {
+    const { rows } = await pool.query("SELECT * FROM books WHERE id = $1", [bookId]);
+    return rows[0];
+}
+
+module.exports = { getBranches, getBooks, getBookById };
