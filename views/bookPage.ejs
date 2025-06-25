@@ -10,7 +10,13 @@
 <body>
     <%- include("partials/navbar")%>
     <h1><%=bookTitle%></h1>
-    <p>This is where I will display one book and you can see its inventory in many locations</p>
+    <% if (branches && branches.length > 0) {%>
+        <ul>
+            <% branches.forEach(branch => {%>
+                <li><%=branch.name%> <%=branch.stock%></li>
+            <%})%>
+        </ul>
+    <%}%>
     <a href="/books">Back</a>
 </body>
 </html>

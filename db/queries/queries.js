@@ -20,4 +20,9 @@ async function getBooksByBranch(branch) {
     return rows;
 }
 
-module.exports = { getBranches, getBooks, getBookById, getBooksByBranch };
+async function getBranchesByBookId(bookId) {
+    const { rows } = await pool.query("SELECT branches.name, stock FROM branches INNER JOIN inventory ON branches.id = inventory.branch_id WHERE inventory.book_id = $1", [bookId]);
+    return rows;
+}
+
+module.exports = { getBranches, getBooks, getBookById, getBooksByBranch, getBranchesByBookId };
