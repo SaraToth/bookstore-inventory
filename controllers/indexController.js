@@ -1,5 +1,5 @@
 const getIndex = (req, res) => {
-    res.send("My Home page");
+    res.render("index");
 };
 
 module.exports = { getIndex };
