@@ -14,10 +14,11 @@ const getBranches = asyncHandler(async (req, res) => {
     res.render("branches", { branches: rows });
 });
 
-const getSingleBranch = (req, res) => {
+const getSingleBranch = asyncHandler(async (req, res) => {
     const branch = req.params.branch;
-    res.render("branchPage", {branchTitle: branch});
-};
+    const books = await queries.getBooksByBranch(branch);
+    res.render("branchPage", {branchTitle: branch, books});
+});
 
 module.exports = { getNewBranch, postNewBranch, getBranches, getSingleBranch };
 

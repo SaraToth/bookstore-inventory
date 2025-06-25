@@ -10,7 +10,13 @@
 <body>
     <%- include("partials/navbar")%>
     <h1><%=branchTitle%></h1>
-    <p>This will be a specific branch page like Hongdae Branch</p>
+    <% if (books && books.length > 0) {%>
+    <ul>
+        <% books.forEach(book => {%>
+            <li><%=book.title%> <%=book.author%> <%=book.stock%></li>
+        <%})%>
+    </ul>
+<%}%>
     <a href="/branches">Back</a>
 </body>
 </html>
