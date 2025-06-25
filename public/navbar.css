@@ -1,0 +1,19 @@
+nav {
+    padding: 10px 0;
+}
+nav ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    display: flex;
+    gap: 1rem;
+}
+
+nav a {
+    text-decoration: none;
+    color: black;
+}
+
+nav a:hover {
+    color: var(--link-hover-color);
+}
