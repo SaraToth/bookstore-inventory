@@ -7,7 +7,7 @@ const postNewBranch = (req, res) => {
 };
 
 const getBranches = (req, res) => {
-    res.send("This will display a list of branches");
+    res.render("branches");
 };
 
 const getSingleBranch = (req, res) => {

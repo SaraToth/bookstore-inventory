@@ -7,7 +7,7 @@ const postNewBook = (req, res) => {
 };
 
 const getBooks = (req, res) => {
-    res.send("This is my books page that displays a list of books");
+    res.render("books");
 };
 
 const getSingleBook = (req, res) => {
