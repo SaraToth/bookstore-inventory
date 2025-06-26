@@ -17,6 +17,8 @@
                 <li><a href="/branches/<%= branch.name%>"><%=branch.name%></a></li>
             <%})%>
         </ul>
+    <%} else {%>
+        <p>There are no branches setup. Add some to get started.</p>
     <%}%>
     <a href="/branches/new">Add a branch</a>
 </body>

@@ -17,6 +17,8 @@
                 <li><a href="/books/<%= book.id%>"><%=book.title%> <%=book.author%></a></li>
             <%})%>
         </ul>
+    <%} else {%>
+        <p>There are no books. Please add some to get started.</p>
     <%}%>
     <a href="/books/new">Add a book</a>
 </body>
