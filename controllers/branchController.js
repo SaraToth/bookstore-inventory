@@ -6,7 +6,7 @@ const getNewBranch = (req, res) => {
     res.render("newBranch");
 };
 
-const postNewBranch = asyncHandler(async (req, res, next) => {
+const postNewBranch = asyncHandler(async (req, res) => {
     const {branchName } = req.body;
 
     // Don't allow duplicate branches
