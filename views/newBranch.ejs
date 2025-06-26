@@ -10,7 +10,12 @@
 <body>
     <%- include("partials/navbar")%>
     <h1>Add a Branch</h1>
-    <p>his will load the form to add a branch</p>
+    <%- include("partials/errors")%>
+    <form action="/branches/new" method="post">
+        <label for="branchName">Branch Name:</label>
+        <input type="text" id="branchName" name="branchName">
+        <button type="submit">Submit</button>
+    </form>
     <a href="/branches">Back</a>
 </body>
 </html>
