@@ -1,5 +1,5 @@
 const getIndex = (req, res) => {
-    res.render("index");
+    return res.render("index");
 };
 
 module.exports = { getIndex };

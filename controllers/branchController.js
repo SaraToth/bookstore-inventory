@@ -3,7 +3,7 @@ const queries = require("../db/queries/queries");
 const asyncHandler = require("express-async-handler");
 
 const getNewBranch = (req, res) => {
-    res.render("newBranch");
+    return res.render("newBranch");
 };
 
 const postNewBranch = asyncHandler(async (req, res) => {
@@ -24,13 +24,13 @@ const postNewBranch = asyncHandler(async (req, res) => {
 
 const getBranches = asyncHandler(async (req, res) => {
     const rows = await queries.getBranches();
-    res.render("branches", { branches: rows });
+    return res.render("branches", { branches: rows });
 });
 
 const getSingleBranch = asyncHandler(async (req, res) => {
     const branch = req.params.branch;
     const books = await queries.getBooksByBranch(branch);
-    res.render("branchPage", {branchTitle: branch, books});
+    return res.render("branchPage", {branchTitle: branch, books});
 });
 
 module.exports = { getNewBranch, postNewBranch, getBranches, getSingleBranch };
