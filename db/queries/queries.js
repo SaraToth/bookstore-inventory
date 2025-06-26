@@ -25,4 +25,23 @@ async function getBranchesByBookId(bookId) {
     return rows;
 }
 
-module.exports = { getBranches, getBooks, getBookById, getBooksByBranch, getBranchesByBookId };
+async function addBranch(branchName) {
+    //Add to branches
+    await pool.query("INSERT INTO branches (name) VALUES ($1)", [branchName]);
+
+    //get new branch id
+    const result = await pool.query("SELECT id FROM branches WHERE branches.name = $1", [branchName]);
+    const branchId = result.rows[0].id;
+
+    //Add all books to that branch with stock 0
+    await pool.query("INSERT INTO inventory (book_id, branch_id, stock) SELECT books.id, $1, 0 FROM books", [branchId]);
+};
+
+async function doesBranchExist(branchName) {
+    const result = await pool.query("SELECT branches.name FROM branches WHERE branches.name = $1", [branchName]);
+    return result.rows.length > 0;
+}
+
+
+
+module.exports = { getBranches, getBooks, getBookById, getBooksByBranch, getBranchesByBookId, addBranch, doesBranchExist };
