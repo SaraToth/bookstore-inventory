@@ -12,6 +12,7 @@
     <h1><%=branch%></h1>
 
 <% if (books && books.length > 0) {%>
+    <%- include("partials/sortBooks", {pagetype: "branches/" + branch})%>
         <form action="/branches/<%=branch%>" method="post">
         <table>
             <tr>
