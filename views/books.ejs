@@ -10,6 +10,10 @@
 <body>
     <%- include("partials/navbar")%>
     <h1>Books</h1>
+    <ul class="sort">
+        <li><a href="/books/?sort=title">Sort by Title</a></li>
+        <li><a href="/books?sort=author">Sort by Author</a></li>
+    </ul>
     <p>This is my books page that displays a list of books</p>
     <% if (books && books.length > 0) {%>
         <ul>

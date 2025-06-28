@@ -63,14 +63,23 @@ const postNewBook = [
         await queries.addBook(newTitle, newAuthor);
 
         //Reload books and redirect
-        const rows = await queries.getBooks();
+        const rows = await queries.getBooksAlphaTitle();
         return res.redirect("/books");
     })
 ];
 
 const getBooks = asyncHandler(async (req, res) => {
-    const rows = await queries.getBooks();
-    res.render("books", { books: rows });
+    const { sort } = req.query;
+    let books;
+
+    if (sort && sort === "title") {
+        books = await queries.getBooksAlphaTitle();
+    } else if (sort && sort === "author") {
+        books = await queries.getBooksAlphaAuthor();
+    } else {
+        books = await queries.getBooksAlphaTitle();
+    }
+    return res.render("books", { books });
 });
 
 const getSingleBook = asyncHandler(async (req, res) => {

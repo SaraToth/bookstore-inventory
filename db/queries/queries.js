@@ -5,8 +5,13 @@ async function getBranches() {
     return rows;
 }
 
-async function getBooks() {
-    const { rows } = await pool.query("SELECT * FROM books");
+async function getBooksAlphaTitle() {
+    const { rows } = await pool.query("SELECT * FROM books ORDER BY title");
+    return rows;
+}
+
+async function getBooksAlphaAuthor() {
+    const { rows } = await pool.query("SELECT * FROM books ORDER BY author");
     return rows;
 }
 
@@ -62,4 +67,4 @@ async function doesBookExist(title, author) {
 
 
 
-module.exports = { getBranches, getBooks, getBookById, getBooksByBranch, getBranchesByBookId, addBranch, doesBranchExist, addBook, doesBookExist };
+module.exports = { getBranches, getBooksAlphaTitle, getBooksAlphaAuthor, getBookById, getBooksByBranch, getBranchesByBookId, addBranch, doesBranchExist, addBook, doesBookExist };
