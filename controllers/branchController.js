@@ -1,6 +1,8 @@
 const { error } = require("console");
 const queries = require("../db/queries/queries");
 const asyncHandler = require("express-async-handler");
+const { body, validationResult } = require("express-validator");
+const e = require("express");
 
 const toProperNoun = (rawName) => {
     return rawName
@@ -12,23 +14,41 @@ const getNewBranch = (req, res) => {
     return res.render("newBranch");
 };
 
-const postNewBranch = asyncHandler(async (req, res) => {
-    const {branchName } = req.body;
+// Make some error messages
 
-    const newBranch = toProperNoun(branchName);
+const validateBranch = [
+    body("branchName").trim()
+        .notEmpty().withMessage("Branch name cannot be empty")
+        .isAlpha().withMessage("Branch name must only use alphabetical characters")
+        .isLength({min: 1, max: 25}).withMessage("Branch name must not exceed 25 characters")
+];
 
-    // Don't allow duplicate branches
-    const branchExists = await queries.doesBranchExist(newBranch);
-    if (branchExists) {
-        return res.status(400).render("newBranch", { errors: [{msg: "That branch already exists"}]});
-    }
+const postNewBranch = [
+    validateBranch,
 
-    // Add non-duplicate branches
-    await queries.addBranch(newBranch);
+    asyncHandler(async (req, res) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).render("newBranch", { errors: errors.array()});
+        }
 
-    const rows = await queries.getBranches();
-    return res.redirect("/branches")
-});
+        const {branchName } = req.body;
+
+        const newBranch = toProperNoun(branchName);
+
+        // Don't allow duplicate branches
+        const branchExists = await queries.doesBranchExist(newBranch);
+        if (branchExists) {
+            return res.status(400).render("newBranch", { errors: [{msg: "That branch already exists"}]});
+        }
+
+        // Add non-duplicate branches
+        await queries.addBranch(newBranch);
+
+        const rows = await queries.getBranches();
+        return res.redirect("/branches")
+    })
+];
 
 const getBranches = asyncHandler(async (req, res) => {
     const rows = await queries.getBranches();
