@@ -14,7 +14,12 @@
     <% if (books && books.length > 0) {%>
         <ul>
             <% books.forEach(book => {%>
-                <li><a href="/books/<%= book.id%>"><%=book.title%> <%=book.author%></a></li>
+                <li>
+                    <div>
+                        <a href="/books/<%= book.id%>"><%=book.title%> <%=book.author%></a>
+                        <form action="/books/<%=book.id%>/delete" method="post"><button>Delete</button></form>
+                    </div>
+                </li>
             <%})%>
         </ul>
     <%} else {%>

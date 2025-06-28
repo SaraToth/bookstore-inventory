@@ -100,6 +100,28 @@ async function updateStockFromBranch(branchId, updates) {
     await Promise.all(runUpdates);
 }
 
+async function deleteBook(bookId) {
+    await pool.query("DELETE FROM inventory WHERE book_id = $1", [bookId]);
+    await pool.query("DELETE FROM books WHERE id = $1", [bookId]);
+};
 
 
-module.exports = { getBranches, getBooksAlphaTitle, getBooksAlphaAuthor, getBookById, getBranchId, getBooksByBranch, getBooksByBranchAlphaTitle, getBooksByBranchAlphaAuthor, getBranchesByBookId, addBranch, doesBranchExist, addBook, doesBookExist, updateStockFromBook, updateStockFromBranch };
+
+module.exports = { 
+    getBranches, 
+    getBooksAlphaTitle, 
+    getBooksAlphaAuthor, 
+    getBookById, 
+    getBranchId, 
+    getBooksByBranch, 
+    getBooksByBranchAlphaTitle, 
+    getBooksByBranchAlphaAuthor, 
+    getBranchesByBookId, 
+    addBranch, 
+    doesBranchExist, 
+    addBook, 
+    doesBookExist, 
+    updateStockFromBook, 
+    updateStockFromBranch,
+    deleteBook 
+};

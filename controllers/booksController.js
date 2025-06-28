@@ -110,4 +110,11 @@ const postStockFromBook = asyncHandler(async (req, res) => {
 
 });
 
-module.exports = { getNewBook, postNewBook, getBooks, getSingleBook, postStockFromBook };
+const deleteBook = asyncHandler(async (req, res) => {
+    const { bookId } = req.params;
+
+    await queries.deleteBook(bookId);
+    return res.redirect("/books");
+});
+
+module.exports = { getNewBook, postNewBook, getBooks, getSingleBook, postStockFromBook, deleteBook };
