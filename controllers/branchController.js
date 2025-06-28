@@ -87,4 +87,11 @@ const postStockFromBranch = asyncHandler(async (req, res) => {
 
 });
 
-module.exports = { getNewBranch, postNewBranch, getBranches, getSingleBranch, postStockFromBranch };
+const deleteBranch = asyncHandler(async (req, res) => {
+    const { branchId } = req.params;
+    await queries.deleteBranch(branchId);
+
+    return res.redirect("/branches");
+})
+
+module.exports = { getNewBranch, postNewBranch, getBranches, getSingleBranch, postStockFromBranch, deleteBranch };

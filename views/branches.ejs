@@ -14,7 +14,12 @@
     <% if (branches && branches.length > 0) {%>
         <ul>
             <% branches.forEach(branch => {%>
-                <li><a href="/branches/<%= branch.name%>"><%=branch.name%></a></li>
+                <li>
+                    <div>
+                        <a href="/branches/<%= branch.name%>"><%=branch.name%></a>
+                        <form action="/branches/<%=branch.id%>/delete"><button>Delete</button></form>
+                    </div>
+                </li>
             <%})%>
         </ul>
     <%} else {%>

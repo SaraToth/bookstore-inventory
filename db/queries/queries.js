@@ -1,7 +1,7 @@
 const pool = require("../pool");
 
 async function getBranches() {
-    const { rows } = await pool.query("SELECT name FROM branches ORDER BY name");
+    const { rows } = await pool.query("SELECT * FROM branches ORDER BY name");
     return rows;
 }
 
@@ -105,6 +105,18 @@ async function deleteBook(bookId) {
     await pool.query("DELETE FROM books WHERE id = $1", [bookId]);
 };
 
+async function deleteBranch(branchId) {
+    await pool.query("DELETE FROM inventory WHERE branch_id = $1", [branchId]);
+    await pool.query("DELETE FROM branches WHERE id = $1", [branchId]);
+
+    const {rows} = await pool.query("SELECT * FROM branches");
+    if (rows.length > 0) return
+    else {
+        await pool.query("DELETE FROM inventory");
+        await pool.query("DELETE FROM books");
+    }
+};
+
 
 
 module.exports = { 
@@ -123,5 +135,6 @@ module.exports = {
     doesBookExist, 
     updateStockFromBook, 
     updateStockFromBranch,
-    deleteBook 
+    deleteBook,
+    deleteBranch
 };
