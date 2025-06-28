@@ -6,6 +6,7 @@
     <title>Books</title>
     <link rel="stylesheet" href="/global.css">
     <link rel="stylesheet" href="/navbar.css">
+    <link rel="stylesheet" href="/sortBooks.css">
 </head>
 <body>
     <%- include("partials/navbar")%>
@@ -16,7 +17,7 @@
             <% books.forEach(book => {%>
                 <li>
                     <div>
-                        <a href="/books/<%= book.id%>"><%=book.title%> <%=book.author%></a>
+                        <a href="/books/<%= book.id%>"><%=book.title%> by <%=book.author%></a>
                         <form action="/books/<%=book.id%>/delete" method="post"><button>Delete</button></form>
                     </div>
                 </li>

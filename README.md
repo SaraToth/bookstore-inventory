@@ -30,3 +30,5 @@ or if you would like to set up a production-ready environment then run
 setup.js
 ```
 to create all your tables
+
+## Current Issues
