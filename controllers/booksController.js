@@ -1,5 +1,29 @@
+const { title } = require("process");
 const queries = require("../db/queries/queries");
 const asyncHandler = require("express-async-handler");
+const { raw } = require("body-parser");
+
+const toTitleCase = (rawTitle) => {
+    const smallWords = ["and", "or", "the", "of", "a", "an", "in", "on", "at", "of", "for", "to", "by", "with", "from", "but"];
+
+    return rawTitle
+    .toLowerCase()
+    .split(" ")
+    .map((word, index) => {
+        if (smallWords.includes(word) && index !== 0) {
+            return word;
+        }
+        return word.charAt(0).toUpperCase() + word.slice(1);
+    })
+    .join(" ");
+
+} 
+
+const toProperNoun = (rawName) => {
+    return rawName
+        .toLowerCase()
+        .replace(/\b\w/g, char => char.toUpperCase());
+};
 
 const getNewBook = (req, res) => {
     res.render("newBook");
@@ -8,14 +32,17 @@ const getNewBook = (req, res) => {
 const postNewBook = asyncHandler(async (req, res) => {
     const { title, author } = req.body;
     
+    const newTitle = toTitleCase(title);
+    const newAuthor = toProperNoun(author);
+    
     // Don't allow duplicate books
-    const bookExists = await queries.doesBookExist(title, author);
+    const bookExists = await queries.doesBookExist(newTitle, newAuthor);
     if (bookExists) {
         return res.status(400).render("newBook", { errors: [{msg: "That book already exists"}]});
     }
 
     //Add non-duplicate books
-    await queries.addBook(title, author);
+    await queries.addBook(newTitle, newAuthor);
 
     //Reload books and redirect
     const rows = await queries.getBooks();

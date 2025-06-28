@@ -2,6 +2,12 @@ const { error } = require("console");
 const queries = require("../db/queries/queries");
 const asyncHandler = require("express-async-handler");
 
+const toProperNoun = (rawName) => {
+    return rawName
+        .toLowerCase()
+        .replace(/\b\w/g, char => char.toUpperCase());
+};
+
 const getNewBranch = (req, res) => {
     return res.render("newBranch");
 };
@@ -9,14 +15,16 @@ const getNewBranch = (req, res) => {
 const postNewBranch = asyncHandler(async (req, res) => {
     const {branchName } = req.body;
 
+    const newBranch = toProperNoun(branchName);
+
     // Don't allow duplicate branches
-    const branchExists = await queries.doesBranchExist(branchName);
+    const branchExists = await queries.doesBranchExist(newBranch);
     if (branchExists) {
         return res.status(400).render("newBranch", { errors: [{msg: "That branch already exists"}]});
     }
 
     // Add non-duplicate branches
-    await queries.addBranch(branchName);
+    await queries.addBranch(newBranch);
 
     const rows = await queries.getBranches();
     return res.redirect("/branches")
