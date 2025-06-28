@@ -20,7 +20,7 @@
                 <% branches.forEach(branch => {%>
                     <tr>
                         <td><%=branch.name%></td>
-                        <td><input type="number" value="<%=branch.stock%>" name="" required></td>
+                        <td><input type="number" value="<%=branch.stock%>" name="stock[branch_<%=branch.id%>]" required></td>
                     </tr>
                 <%})%>
             <%}%>

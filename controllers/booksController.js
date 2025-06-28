@@ -96,7 +96,18 @@ const getSingleBook = asyncHandler(async (req, res) => {
 const postStockFromBook = asyncHandler(async (req, res) => {
     //Will need to validae form input
     const bookId = req.params.bookId;
-    res.send("Coming soon: Post updates to stock from Book Page")
+    const stocks = req.body.stock;
+
+    const updates = Object.entries(stocks).map(([key, value]) => {
+        const branchId = key.split("_")[1];
+        const stock = value;
+        return {branchId, stock};
+    });
+
+    await queries.updateStockFromBook(bookId, updates);
+
+    return res.redirect("/books");
+
 });
 
 module.exports = { getNewBook, postNewBook, getBooks, getSingleBook, postStockFromBook };

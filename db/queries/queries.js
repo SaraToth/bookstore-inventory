@@ -80,13 +80,17 @@ async function doesBookExist(title, author) {
     return result.rows.length > 0;
 }
 
-async function updateStockFromBook() {
+async function updateStockFromBook(bookId, updates) {
+    const runUpdates = updates.map(({branchId, stock}) => {
+        return pool.query("UPDATE inventory SET stock = $1 WHERE book_id = $2 AND branch_id = $3", 
+            [stock, bookId, branchId]
+        );
+    });
 
+    await Promise.all(runUpdates);
 };
 
 async function updateStockFromBranch(branchId, updates) {
-    console.log(updates);
-    console.log(branchId);
     const runUpdates = updates.map(({bookId, stock}) => {
         return pool.query("UPDATE inventory SET stock = $1 WHERE book_id = $2 AND branch_id = $3",
             [stock, bookId, branchId]
