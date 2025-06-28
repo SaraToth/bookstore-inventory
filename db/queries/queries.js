@@ -1,7 +1,7 @@
 const pool = require("../pool");
 
 async function getBranches() {
-    const { rows } = await pool.query("SELECT name FROM branches");
+    const { rows } = await pool.query("SELECT name FROM branches ORDER BY name");
     return rows;
 }
 
