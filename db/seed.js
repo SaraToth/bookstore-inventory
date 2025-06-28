@@ -35,16 +35,6 @@ const SQL = `
     SELECT books.id, branches.id, 0
     FROM books
     CROSS JOIN branches;
-
-    CREATE VIEW book_branch_stock AS
-    SELECT books.title, books.author,
-    SUM(CASE WHEN branches.name = 'Hongdae' THEN inventory.stock ELSE 0 END) AS "Hongdae",
-    SUM(CASE WHEN branches.name = 'Gangnam' THEN inventory.stock ELSE 0 END) AS "Gangnam",
-    SUM(CASE WHEN branches.name = 'Gwanghwamoon' THEN inventory.stock ELSE 0 END) AS "Gwanghwamoon"
-    FROM books
-    INNER JOIN inventory ON books.id = inventory.book_id
-    INNER JOIN branches ON inventory.branch_id = branches.id
-    GROUP BY books.title, books.author;
 `;
 
 async function main() {
