@@ -7,18 +7,19 @@
     <link rel="stylesheet" href="/global.css">
     <link rel="stylesheet" href="/navbar.css">
     <link rel="stylesheet" href="/sortBooks.css">
+    <link rel="stylesheet" href="/booksList.css">
 </head>
 <body>
     <%- include("partials/navbar")%>
     <h1>Books</h1>
     <%- include("partials/sortBooks", {pagetype: "books"})%>
     <% if (books && books.length > 0) {%>
-        <ul>
+        <ul class="list">
             <% books.forEach(book => {%>
                 <li>
                     <div>
                         <a href="/books/<%= book.id%>"><%=book.title%> by <%=book.author%></a>
-                        <form action="/books/<%=book.id%>/delete" method="post"><button>Delete</button></form>
+                        <form action="/books/<%=book.id%>/delete" method="post"><button class="delete">Delete</button></form>
                     </div>
                 </li>
             <%})%>

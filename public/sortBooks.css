@@ -1,5 +1,5 @@
 .sort {
-    padding: 10px 0;
+    padding: 14px 0 10px;
     display: flex;
 }
 
@@ -7,5 +7,5 @@
     margin: 0;
     padding: 0;
     list-style-type: none;
-    gap: 1rem;
+    gap: 3rem;
 }

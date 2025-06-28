@@ -13,7 +13,7 @@ body {
 }
 
 h1 {
-    margin-top: 50px;
+    margin-top: 30px;
 }
 
 ul {
@@ -41,4 +41,24 @@ button {
 button:hover {
     cursor: pointer;
     background-color: var(--button-hover-color);
+}
+
+.list {
+    width: 66%;
+}
+
+.list li {
+    margin: 14px 0;
+    padding: 8px;
+    border: 1px dashed black;
+}
+
+.list div{
+    display: flex;
+    justify-content: space-between;
+}
+
+.delete {
+    font-size: 12px;
+    padding: 5px 14px;
 }

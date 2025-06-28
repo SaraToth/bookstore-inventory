@@ -11,12 +11,12 @@
     <%- include("partials/navbar")%>
     <h1>Branches</h1>
     <% if (branches && branches.length > 0) {%>
-        <ul>
+        <ul class="list">
             <% branches.forEach(branch => {%>
                 <li>
                     <div>
                         <a href="/branches/<%= branch.name%>"><%=branch.name%></a>
-                        <form action="/branches/<%=branch.id%>/delete"><button>Delete</button></form>
+                        <form action="/branches/<%=branch.id%>/delete"><button class="delete">Delete</button></form>
                     </div>
                 </li>
             <%})%>
