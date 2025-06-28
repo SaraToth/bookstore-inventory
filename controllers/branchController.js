@@ -69,6 +69,8 @@ const getSingleBranch = asyncHandler(async (req, res) => {
 });
 
 const postStockFromBranch = asyncHandler(async (req, res) => {
+    const branchName = req.params.branch;
+
      //Will need to validae form input
     res.send("Coming soon: Post updates to stock from Branches")
 });

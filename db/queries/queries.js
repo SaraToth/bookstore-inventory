@@ -26,12 +26,12 @@ async function getBooksByBranch(branch) {
 }
 
 async function getBooksByBranchAlphaTitle(branch) {
-    const { rows } = await pool.query("SELECT title, author, stock FROM books INNER JOIN inventory ON books.id = inventory.book_id INNER JOIN branches ON inventory.branch_id = branches.id WHERE branches.name = $1 ORDER BY books.title", [branch]);
+    const { rows } = await pool.query("SELECT books.id, title, author, stock FROM books INNER JOIN inventory ON books.id = inventory.book_id INNER JOIN branches ON inventory.branch_id = branches.id WHERE branches.name = $1 ORDER BY books.title", [branch]);
     return rows;
 }
 
 async function getBooksByBranchAlphaAuthor(branch) {
-    const { rows } = await pool.query("SELECT title, author, stock FROM books INNER JOIN inventory ON books.id = inventory.book_id INNER JOIN branches ON inventory.branch_id = branches.id WHERE branches.name = $1 ORDER BY books.author", [branch]);
+    const { rows } = await pool.query("SELECT books.id, title, author, stock FROM books INNER JOIN inventory ON books.id = inventory.book_id INNER JOIN branches ON inventory.branch_id = branches.id WHERE branches.name = $1 ORDER BY books.author", [branch]);
     return rows;
 }
 
