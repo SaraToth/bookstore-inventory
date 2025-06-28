@@ -5,7 +5,7 @@ const { getNewBook, postNewBook, getBooks, getSingleBook, updateBookStock } = re
 booksRouter.get("/new", getNewBook);
 booksRouter.post("/new", postNewBook);
 booksRouter.get("/:bookId", getSingleBook);
-booksRouter.post("/:bookId", updateBookStock)
+booksRouter.post("/:bookId", (req, res) => {res.send("Coming soon: Post updates to stock from Book Page")})
 booksRouter.get("/", getBooks);
 
 module.exports = booksRouter;

@@ -55,7 +55,7 @@ const getBranches = asyncHandler(async (req, res) => {
 const getSingleBranch = asyncHandler(async (req, res) => {
     const branch = req.params.branch;
     const books = await queries.getBooksByBranch(branch);
-    return res.render("branchPage", {branchTitle: branch, books});
+    return res.render("branchPage", {branch, books});
 });
 
 module.exports = { getNewBranch, postNewBranch, getBranches, getSingleBranch };

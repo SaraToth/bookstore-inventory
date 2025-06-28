@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%=branchTitle%></title>
+    <title><%=branch%></title>
     <link rel="stylesheet" href="/global.css">
     <link rel="stylesheet" href="/navbar.css">
 </head>
 <body>
     <%- include("partials/navbar")%>
-    <h1><%=branchTitle%></h1>
+    <h1><%=branch%></h1>
     <% if (books && books.length > 0) {%>
     <ul>
         <% books.forEach(book => {%>
@@ -17,6 +17,30 @@
         <%})%>
     </ul>
 <%}%>
+
+
+    <form action="/branches/<%=branch%>" method="post">
+        <table>
+            <tr>
+                <th scope="col">Title</th>
+                <th scope="col">Author</th>
+                <th scope="col">Stock</th>
+            </tr>
+            <% if (books && books.length > 0) {%>
+                <% books.forEach(book => {%>
+                    <tr>
+                        <td><%=book.title%></td>
+                        <td><%=book.author%></td>
+                        <td><input type="number" value="<%=book.stock%>" name="" required></td>
+                    </tr>
+                <%})%>
+            <%}%>
+        </table>
+        <button>Update</button>
+    </form>
+    <br>
+
+
     <a href="/branches">Back</a>
 </body>
 </html>
