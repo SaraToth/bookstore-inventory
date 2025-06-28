@@ -25,6 +25,16 @@ async function getBooksByBranch(branch) {
     return rows;
 }
 
+async function getBooksByBranchAlphaTitle(branch) {
+    const { rows } = await pool.query("SELECT title, author, stock FROM books INNER JOIN inventory ON books.id = inventory.book_id INNER JOIN branches ON inventory.branch_id = branches.id WHERE branches.name = $1 ORDER BY books.title", [branch]);
+    return rows;
+}
+
+async function getBooksByBranchAlphaAuthor(branch) {
+    const { rows } = await pool.query("SELECT title, author, stock FROM books INNER JOIN inventory ON books.id = inventory.book_id INNER JOIN branches ON inventory.branch_id = branches.id WHERE branches.name = $1 ORDER BY books.author", [branch]);
+    return rows;
+}
+
 async function getBranchesByBookId(bookId) {
     const { rows } = await pool.query("SELECT branches.id, branches.name, stock FROM branches INNER JOIN inventory ON branches.id = inventory.branch_id WHERE inventory.book_id = $1", [bookId]);
     return rows;
@@ -65,10 +75,14 @@ async function doesBookExist(title, author) {
     return result.rows.length > 0;
 }
 
-async function updateBookStock() {
+async function updateStockFromBook() {
 
 };
 
+async function updateStockFromBranch() {
+
+}
 
 
-module.exports = { getBranches, getBooksAlphaTitle, getBooksAlphaAuthor, getBookById, getBooksByBranch, getBranchesByBookId, addBranch, doesBranchExist, addBook, doesBookExist, updateBookStock };
+
+module.exports = { getBranches, getBooksAlphaTitle, getBooksAlphaAuthor, getBookById, getBooksByBranch, getBooksByBranchAlphaTitle, getBooksByBranchAlphaAuthor, getBranchesByBookId, addBranch, doesBranchExist, addBook, doesBookExist, updateStockFromBook, updateStockFromBranch };

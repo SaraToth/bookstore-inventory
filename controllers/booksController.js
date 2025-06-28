@@ -100,12 +100,3 @@ const postStockFromBook = asyncHandler(async (req, res) => {
 });
 
 module.exports = { getNewBook, postNewBook, getBooks, getSingleBook, postStockFromBook };
-
-// Books:
-// - Displays a list of books (title and author) / with a link like "Add a book"
-// - Click on title or author to sort books by title or author
-// - Click on a book -> Displays availability across branches in a form, with a X button and a update button
-
-
-// Views:
-// Books, BookModal, newBook

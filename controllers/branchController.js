@@ -53,8 +53,18 @@ const getBranches = asyncHandler(async (req, res) => {
 });
 
 const getSingleBranch = asyncHandler(async (req, res) => {
+    const { sort } = req.query;
+    let books;
     const branch = req.params.branch;
-    const books = await queries.getBooksByBranch(branch);
+
+    if (sort && sort === "title") {
+        books = await queries.getBooksByBranchAlphaTitle(branch);
+    } else if (sort && sort === "author") {
+        books = await queries.getBooksByBranchAlphaAuthor(branch)
+    } else {
+        books = await queries.getBooksByBranchAlphaTitle(branch);
+    }
+
     return res.render("branchPage", {branch, books});
 });
 
@@ -64,10 +74,3 @@ const postStockFromBranch = asyncHandler(async (req, res) => {
 });
 
 module.exports = { getNewBranch, postNewBranch, getBranches, getSingleBranch, postStockFromBranch };
-
-// Branches:
-//                     -> Click on title or author to sort books by title or author
-//                     -> Displays a form element next to each book (column) of availability with update buttons
-
-// Views
-// Branches, Branch, newBranch
