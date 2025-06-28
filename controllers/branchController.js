@@ -70,9 +70,21 @@ const getSingleBranch = asyncHandler(async (req, res) => {
 
 const postStockFromBranch = asyncHandler(async (req, res) => {
     const branchName = req.params.branch;
+    const stocks = req.body.stock;
+    const branchId = await queries.getBranchId(branchName);
+
+    const updates = Object.entries(stocks).map(([key, value]) => {
+        const bookId = key.split("_")[1];
+        const stock = value;
+        return {bookId, stock};
+    });
+
+    await queries.updateStockFromBranch(branchId, updates);
 
      //Will need to validae form input
-    res.send("Coming soon: Post updates to stock from Branches")
+    
+    return res.redirect("/branches");
+
 });
 
 module.exports = { getNewBranch, postNewBranch, getBranches, getSingleBranch, postStockFromBranch };

@@ -20,6 +20,11 @@ async function getBookById(bookId) {
     return rows[0];
 }
 
+async function getBranchId(branchName) {
+   const { rows } = await pool.query("SELECT id FROM branches WHERE name = $1", [branchName]);
+   return rows[0].id;
+}
+
 async function getBooksByBranch(branch) {
     const { rows } = await pool.query("SELECT title, author, stock FROM books INNER JOIN inventory ON books.id = inventory.book_id INNER JOIN branches ON inventory.branch_id = branches.id WHERE branches.name = $1", [branch]);
     return rows;
@@ -79,10 +84,18 @@ async function updateStockFromBook() {
 
 };
 
-async function updateStockFromBranch() {
+async function updateStockFromBranch(branchId, updates) {
+    console.log(updates);
+    console.log(branchId);
+    const runUpdates = updates.map(({bookId, stock}) => {
+        return pool.query("UPDATE inventory SET stock = $1 WHERE book_id = $2 AND branch_id = $3",
+            [stock, bookId, branchId]
+        );
+    });
 
+    await Promise.all(runUpdates);
 }
 
 
 
-module.exports = { getBranches, getBooksAlphaTitle, getBooksAlphaAuthor, getBookById, getBooksByBranch, getBooksByBranchAlphaTitle, getBooksByBranchAlphaAuthor, getBranchesByBookId, addBranch, doesBranchExist, addBook, doesBookExist, updateStockFromBook, updateStockFromBranch };
+module.exports = { getBranches, getBooksAlphaTitle, getBooksAlphaAuthor, getBookById, getBranchId, getBooksByBranch, getBooksByBranchAlphaTitle, getBooksByBranchAlphaAuthor, getBranchesByBookId, addBranch, doesBranchExist, addBook, doesBookExist, updateStockFromBook, updateStockFromBranch };
