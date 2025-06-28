@@ -3,20 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%=bookTitle%></title>
+    <title><%=bookTitle%> by <%=bookAuthor%></title>
     <link rel="stylesheet" href="/global.css">
     <link rel="stylesheet" href="/navbar.css">
 </head>
 <body>
     <%- include("partials/navbar")%>
-    <h1><%=bookTitle%></h1>
-    <% if (branches && branches.length > 0) {%>
-        <ul>
+    <h1><%=bookTitle%> by <%=bookAuthor%></h1>
+        <table>
+        <tr>
+            <th scope="col">Branch</th>
+            <th scope="col">Stock</th>
+        </tr>
+        <% if (branches && branches.length > 0) {%>
             <% branches.forEach(branch => {%>
-                <li><%=branch.name%> <%=branch.stock%></li>
+                <tr>
+                    <td><%=branch.name%></td>
+                    <td><%=branch.stock%></td>
+                </tr>
             <%})%>
-        </ul>
-    <%}%>
-    <a href="/books">Back</a>
+        <%}%>
+    </table>
+    <a href="/books">Back</a><br>
 </body>
 </html>

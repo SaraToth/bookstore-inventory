@@ -86,7 +86,7 @@ const getSingleBook = asyncHandler(async (req, res) => {
     const {bookId} = req.params;
     const book = await queries.getBookById(bookId);
     const branches = await queries.getBranchesByBookId(bookId);
-    res.render("bookPage", {bookTitle: book.title, branches});
+    res.render("bookPage", {bookTitle: book.title, bookAuthor: book.author, branches});
 });
 
 module.exports = { getNewBook, postNewBook, getBooks, getSingleBook };
