@@ -18,8 +18,8 @@
     </ul>
 <%}%>
 
-
-    <form action="/branches/<%=branch%>" method="post">
+<% if (books && books.length > 0) {%>
+        <form action="/branches/<%=branch%>" method="post">
         <table>
             <tr>
                 <th scope="col">Title</th>
@@ -38,6 +38,10 @@
         </table>
         <button>Update</button>
     </form>
+<%} else {%>
+    <p>There are no books at this location. </p>
+<%}%>
+
     <br>
 
 
