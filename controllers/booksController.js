@@ -92,14 +92,14 @@ const getSingleBook = asyncHandler(async (req, res) => {
     res.render("bookPage", {book, branches});
 });
 
-const updateBookStock = asyncHandler(async (req, res) => {
+
+const postStockFromBook = asyncHandler(async (req, res) => {
     //Will need to validae form input
-
     const bookId = req.params.bookId;
-
+    res.send("Coming soon: Post updates to stock from Book Page")
 });
 
-module.exports = { getNewBook, postNewBook, getBooks, getSingleBook, updateBookStock };
+module.exports = { getNewBook, postNewBook, getBooks, getSingleBook, postStockFromBook };
 
 // Books:
 // - Displays a list of books (title and author) / with a link like "Add a book"

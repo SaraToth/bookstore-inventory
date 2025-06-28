@@ -10,13 +10,6 @@
 <body>
     <%- include("partials/navbar")%>
     <h1><%=branch%></h1>
-    <% if (books && books.length > 0) {%>
-    <ul>
-        <% books.forEach(book => {%>
-            <li><%=book.title%> <%=book.author%> <%=book.stock%></li>
-        <%})%>
-    </ul>
-<%}%>
 
 <% if (books && books.length > 0) {%>
         <form action="/branches/<%=branch%>" method="post">

@@ -58,7 +58,12 @@ const getSingleBranch = asyncHandler(async (req, res) => {
     return res.render("branchPage", {branch, books});
 });
 
-module.exports = { getNewBranch, postNewBranch, getBranches, getSingleBranch };
+const postStockFromBranch = asyncHandler(async (req, res) => {
+     //Will need to validae form input
+    res.send("Coming soon: Post updates to stock from Branches")
+});
+
+module.exports = { getNewBranch, postNewBranch, getBranches, getSingleBranch, postStockFromBranch };
 
 // Branches:
 //                     -> Click on title or author to sort books by title or author
