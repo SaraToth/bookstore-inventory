@@ -3,27 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%=bookTitle%> by <%=bookAuthor%></title>
+    <title><%=book.title%> by <%=book.author%></title>
     <link rel="stylesheet" href="/global.css">
     <link rel="stylesheet" href="/navbar.css">
 </head>
 <body>
     <%- include("partials/navbar")%>
-    <h1><%=bookTitle%> by <%=bookAuthor%></h1>
+    <h1><%=book.title%> by <%=book.author%></h1>
+    <form action="/books/<%=book.id%>" method="post">
         <table>
-        <tr>
-            <th scope="col">Branch</th>
-            <th scope="col">Stock</th>
-        </tr>
-        <% if (branches && branches.length > 0) {%>
-            <% branches.forEach(branch => {%>
-                <tr>
-                    <td><%=branch.name%></td>
-                    <td><%=branch.stock%></td>
-                </tr>
-            <%})%>
-        <%}%>
-    </table>
+            <tr>
+                <th scope="col">Branch</th>
+                <th scope="col">Stock</th>
+            </tr>
+            <% if (branches && branches.length > 0) {%>
+                <% branches.forEach(branch => {%>
+                    <tr>
+                        <td><%=branch.name%></td>
+                        <td><input type="number" value="<%=branch.stock%>" name="stock[<%=branch.id%>]" required></td>
+                    </tr>
+                <%})%>
+            <%}%>
+        </table>
+        <button>Update</button>
+    </form>
+    <br>
     <a href="/books">Back</a><br>
 </body>
 </html>

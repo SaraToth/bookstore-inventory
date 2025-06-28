@@ -1,4 +1,3 @@
-const { error } = require("console");
 const queries = require("../db/queries/queries");
 const asyncHandler = require("express-async-handler");
 const { body, validationResult } = require("express-validator");
@@ -13,8 +12,6 @@ const toProperNoun = (rawName) => {
 const getNewBranch = (req, res) => {
     return res.render("newBranch");
 };
-
-// Make some error messages
 
 const validateBranch = [
     body("branchName").trim()
@@ -64,8 +61,6 @@ const getSingleBranch = asyncHandler(async (req, res) => {
 module.exports = { getNewBranch, postNewBranch, getBranches, getSingleBranch };
 
 // Branches:
-// - Displays a list of branches / with a link like "Add new branch"
-// - Click on a branch -> Displays a list of books (title and author)
 //                     -> Click on title or author to sort books by title or author
 //                     -> Displays a form element next to each book (column) of availability with update buttons
 

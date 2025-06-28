@@ -35,6 +35,9 @@ const validateBook = [
         .matches(/^[A-Za-z\s]+$/) // Regex for alphabetical letters or spaces only
         .withMessage("Author names must only contain letters and spaces")
 ];
+const validateStock = [
+    body("")
+]
 
 const getNewBook = (req, res) => {
     res.render("newBook");
@@ -86,10 +89,17 @@ const getSingleBook = asyncHandler(async (req, res) => {
     const {bookId} = req.params;
     const book = await queries.getBookById(bookId);
     const branches = await queries.getBranchesByBookId(bookId);
-    res.render("bookPage", {bookTitle: book.title, bookAuthor: book.author, branches});
+    res.render("bookPage", {book, branches});
 });
 
-module.exports = { getNewBook, postNewBook, getBooks, getSingleBook };
+const updateBookStock = asyncHandler(async (req, res) => {
+    //Will need to validae form input
+
+    const bookId = req.params.bookId;
+
+});
+
+module.exports = { getNewBook, postNewBook, getBooks, getSingleBook, updateBookStock };
 
 // Books:
 // - Displays a list of books (title and author) / with a link like "Add a book"
