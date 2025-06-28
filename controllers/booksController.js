@@ -5,9 +5,22 @@ const getNewBook = (req, res) => {
     res.render("newBook");
 };
 
-const postNewBook = (req, res) => {
-    res.send("This is where my form will post to before redirecting to index");
-};
+const postNewBook = asyncHandler(async (req, res) => {
+    const { title, author } = req.body;
+    
+    // Don't allow duplicate books
+    const bookExists = await queries.doesBookExist(title, author);
+    if (bookExists) {
+        return res.status(400).render("newBook", { errors: [{msg: "That book already exists"}]});
+    }
+
+    //Add non-duplicate books
+    await queries.addBook(title, author);
+
+    //Reload books and redirect
+    const rows = await queries.getBooks();
+    return res.redirect("/books");
+});
 
 const getBooks = asyncHandler(async (req, res) => {
     const rows = await queries.getBooks();

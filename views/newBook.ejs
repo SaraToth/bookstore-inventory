@@ -11,6 +11,16 @@
     <%- include("partials/navbar")%>
     <h1>Add a Book</h1>
     <p>his will load the form to add a book</p>
+    <%- include("partials/errors")%>
+    <form action="/books/new" method="post">
+        <label for="title">Title:</label>
+        <input type="text" id="title" name="title" required>
+
+        <label for="author">Author:</label>
+        <input type="text" id="author" name="author" required>
+
+        <button type="submit">Submit</button>
+    </form>
     <a href="/books">Back</a>
 </body>
 </html>
